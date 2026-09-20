@@ -28,18 +28,44 @@ block is in the prompt, so the status column always describes what the prompt
 actually contains.
 
 Target for the next version: pick the few that earn their lines. v2.1 added
-exactly one block (50 lines, section 1) over v2.0, and was committed as-is
-(1222 lines, 21 sections) - see archive/Delta v2.1 from v2.0.md.
+exactly one block (50 lines, section 1) over v2.0; v2.2 added a full new
+section (Agent Skills Audit) plus the parallel-execution preamble option,
+229 lines over v2.1. Both were committed and now live under archive/ - see
+archive/Delta v2.1 from v2.0.md and archive/Delta v2.2 from v2.1.md.
 
-Text is deliberately plain ASCII. Working file: Save Tokens Audit v2.2.txt,
-not yet committed (1451 lines, 22 sections) - see archive/Delta v2.2 from v2.1.md.
-Do not add further content to v2.1.txt; it is closed and matches its commit.
+Text is deliberately plain ASCII. Working file: Save Tokens Audit v3.0.txt,
+not yet committed (1847 lines, 25 sections) - sections 3-5 (Agent Delegation
+& Orchestration, Agent Architecture Principles, Agent Platform Governance)
+added over v2.2, all remaining candidates below now Processed or Rejected.
+Do not add further content to v2.1.txt or v2.2.txt; both are closed and
+match their commits/archive state.
+
+## Index
+
+Quick status check without scanning the whole file: as of the last update,
+every candidate is Processed or Rejected - nothing is Selected, To
+investigate, or Undecided. If that has changed, this line is stale; trust
+`grep -c '\*\*Status\*\*: Selected'` over this paragraph.
+
+| Range | Source / theme | Landed in |
+|---|---|---|
+| C1-C10 | Initial batch: issues #1/#2, papercuts | v2.1, sections 1/11/12/16/20 (4 merged away, 1 rejected) |
+| C11-C17 | Agent delegation & orchestration | v3.0, section 3 |
+| C18 | Parallel execution of the audit itself | v2.2/v3.0, AUDIT SEQUENCE preamble |
+| C19-C26 | Agent platform governance (Gemini-sourced) | v3.0, section 5 |
+| C27-C31 | Agent architecture principles (Anthropic) | v3.0, section 4 (C29 -> section 2) |
+| C32-C37 | Agent platform governance (OpenAI-sourced, weaker sourcing - see group note) | v3.0, section 5 |
+| C38-C43 | Skills craft (secondhand + IBM video sources) | v2.2, section 2 (C40, C43 rejected) |
+| C44-C51 | Skills best practices, cross-vendor (official docs) | v2.2, section 2 |
+
+Jump to any candidate with a direct search for its heading, e.g. `## C27.`.
 
 ---
 
 ## C1. Test suite parallelization and wall-clock budget
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 12
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from
+  v2.0.md), section 12
 - **Source**: issue #1 (Auditing for testing parallelization)
 - **Section**: 12 (Testing), possibly a shared note with 11 (Build Pipeline)
 - **Budget**: ~25 lines
@@ -68,7 +94,8 @@ usually exposes order dependence.
 
 ## C2. Feedback-loop latency against the agent's tool timeout
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 11
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from
+  v2.0.md), section 11
 - **Source**: papercuts 2026-09-19 (pre-commit `lake build`, 6-12 min, hit the
   2-min tool timeout)
 - **Section**: 11 (Build Pipeline)
@@ -93,7 +120,8 @@ agent is supposed to do when something is unavoidably slow.
 
 ## C3. Recommendation intake and disposition
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 16
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from
+  v2.0.md), section 16
 - **Source**: issue #2 (Integrate Agent recommendations)
 - **Section**: 16 (Governance) or a new section
 - **Budget**: ~20 lines
@@ -168,7 +196,7 @@ identified for skills.
 
 ## C6. Per-session baseline budget
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 1
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from v2.0.md), section 1
 - **Section**: 1 (AI Configuration)
 - **Budget**: ~30 lines (absorbs C5)
 
@@ -199,7 +227,7 @@ stated number in the final output format.
 
 ## C7. Permission and approval friction
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 1
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from v2.0.md), section 1
 - **Section**: 1 (AI Configuration) or 16 (Governance)
 - **Budget**: ~15 lines
 
@@ -226,7 +254,8 @@ for a large occasional one.
 
 ## C8. Tooling friction log
 
-- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 20
+- **Status**: Processed - integrated in v2.1 (see archive/Delta v2.1 from
+  v2.0.md), section 20
 - **Source**: the papercuts practice itself
 - **Section**: 20 (Context Continuity) or 16 (Governance)
 - **Budget**: ~15 lines
@@ -313,7 +342,7 @@ existing ones.
 
 ## C11. Subagent definitions as versioned project assets
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22, or 1 (AI Configuration)
 - **Budget**: ~25 lines
 
@@ -340,7 +369,7 @@ same principle applied to a second surface.
 
 ## C12. Least-privilege scoping of delegated agents
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22, or 1
 - **Budget**: ~25 lines
 
@@ -363,7 +392,7 @@ asks what each delegated worker is allowed to use.
 
 ## C13. Delegation boundaries
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22
 - **Budget**: ~20 lines
 
@@ -385,7 +414,7 @@ call.
 
 ## C14. Isolation for concurrent file edits
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22, or 19 with C4
 - **Budget**: ~20 lines
 
@@ -410,7 +439,7 @@ is configured to actually work. Budget rises to ~30 lines to cover both.
 
 ## C15. Choosing an orchestration mode and bounding its cost
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22
 - **Budget**: ~30 lines
 
@@ -436,7 +465,7 @@ about the work, not a number.
 
 ## C16. Trust and verification of agent-reported results
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22, or 19
 - **Budget**: ~30 lines (absorbs C10)
 
@@ -466,7 +495,7 @@ unverified claim, whoever made it.
 
 ## C17. Codifying repeated orchestration
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 3
 - **Section**: new 22, or 16 (Governance)
 - **Budget**: ~15 lines
 
@@ -484,8 +513,8 @@ that nobody audits is a standing instruction with no owner.
 
 ## C18. Parallel execution of the audit prompt itself
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt,
-  AUDIT SEQUENCE preamble, as an option the agent proposes to the user before
+- **Status**: Processed - integrated in v2.2 (see archive/Delta v2.2 from
+  v2.1.md), AUDIT SEQUENCE preamble, as an option the agent proposes to the user before
   starting (not a default), per the user's explicit instruction
 - **Source**: user request, this session
 - **Section**: not a numbered section - a change to ROLE & CONSTRAINTS /
@@ -557,7 +586,7 @@ wholly new ones.
 
 ## C19. Agent identity and credential lifecycle hygiene
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 6 (Security), touches 16 (Governance)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-identity-overview
   (IAM-specific and platform-specific pages)
@@ -588,7 +617,7 @@ about identity persisting, and drifting, across deployments in production.
 
 ## C20. Agent registry and catalog governance
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: new agent section, touches 4 (Dependency)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-registry,
   agent-gateway-overview (which treats the registry as its directory of
@@ -617,7 +646,7 @@ and approval gating across many agents at the scale of a team or org.
 
 ## C21. Network mediation for agent-to-agent and agent-to-tool calls
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 6 (Security)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-gateway-overview
   (deny-unless-explicitly-granted policy for all agent traffic, protocol
@@ -647,7 +676,7 @@ enforcement and logging point rather than going direct.
 
 ## C22. Long-term agent memory governance
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 9 (Data Lifecycle), touches 20 (Context Continuity)
 - **Source**: Gemini Enterprise Agent Platform docs - memory-bank
   (extraction, consolidation, TTL, per-identity scope isolation, regional
@@ -678,7 +707,7 @@ section 20's persistent memory check ask within a session or across a task.
 
 ## C23. Agent trajectory evaluation, not just output evaluation
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 12 (Testing)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-evaluation
   (trajectory quality vs. final-response quality, environment simulation with
@@ -709,7 +738,7 @@ This is a systematic, offline evaluation harness with a CI gate.
 
 ## C24. Deterministic grounding checks versus LLM-judge evaluation cost
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 19 (AI-Specific Risk), touches 15 (Cost)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-evaluation
   (reference-based vs. reference-free metrics); lifecycle blog post's
@@ -735,7 +764,7 @@ frequency) is tracked anywhere at all.
 
 ## C25. Agent interoperability protocol versioning
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 4 (Dependency), touches 13 (Vendor Resilience)
 - **Source**: Gemini Enterprise Agent Platform docs - agent-registry
   (A2A protocol version 1.0, `supportedInterfaces` declaration requirement)
@@ -758,7 +787,7 @@ support the expected protocol version.
 
 ## C26. Agent runtime cost shape
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 15 (Cost)
 - **Source**: lifecycle blog post (Agent Runtime scale-to-zero and cold-start
   tradeoff, persistent session/memory state, sandboxed code execution billed
@@ -800,7 +829,7 @@ about the architecture of a product the project is building.
 
 ## C27. Complexity justification: agent vs. workflow vs. single call
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 4
 - **Section**: new agent-platform section, touches 3 (Architecture)
 - **Source**: building-effective-agents ("optimizing single LLM calls with
   retrieval and in-context examples is usually enough"; "agentic systems
@@ -831,7 +860,7 @@ to scope" question into the specific, citable case of agentic complexity.
 
 ## C28. Workflow pattern selection before an open-ended agent loop
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 4
 - **Section**: new agent-platform section
 - **Source**: building-effective-agents (prompt chaining, routing,
   parallelization - sectioning and voting, orchestrator-workers,
@@ -864,7 +893,7 @@ open loop.
 
 ## C29. Agent-computer interface (tool and API) design and testing quality
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: 1 (AI Configuration), touches the new agent-platform section
 - **Source**: building-effective-agents (ACI section: tool documentation
   "just as much prompt engineering attention as your overall prompts," the
@@ -895,7 +924,7 @@ format that costs extra tokens and errors to produce correctly.
 
 ## C30. Framework abstraction risk in agent implementations
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 4
 - **Section**: 2 (Technology Stack), touches 19 (AI-Specific Risk)
 - **Source**: building-effective-agents ("start by using LLM APIs directly";
   frameworks "often create extra layers of abstraction that can obscure the
@@ -919,7 +948,7 @@ underneath its abstraction, or is its behavior taken on faith.
 
 ## C31. Explicit agent planning-step transparency
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 4
 - **Section**: new agent-platform section, touches 14 (Observability)
 - **Source**: building-effective-agents (one of three named core principles:
   "prioritize transparency by explicitly showing the agent's planning steps")
@@ -964,7 +993,7 @@ selected.
 
 ## C32. Guardrail-layer precision/recall tuning
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 6 (Security) or 19 (AI-Specific Risk)
 - **Source**: OpenAI agentic governance cookbook (guardrail pipeline stages,
   confidence-threshold feedback loops, oscillation-prevention guidance)
@@ -997,7 +1026,7 @@ all traffic, not an eval-time cost.
 
 ## C33. Human-in-the-loop escalation calibration
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 6 (Security) or 16 (Governance)
 - **Source**: OpenAI practical guide to building agents (per-tool risk
   ratings, failure-threshold and high-risk triggers for escalation)
@@ -1030,7 +1059,7 @@ reviewer capacity.
 
 ## C34. Governance-as-code packaging across agents
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 16 (Governance)
 - **Source**: OpenAI agentic governance cookbook (versioned, installable
   policy packages consumed by every agent)
@@ -1058,7 +1087,7 @@ artifact from either.
 
 ## C35. Trace and telemetry data residency for agent observability
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 14 (Observability)
 - **Source**: OpenAI agentic governance cookbook (Zero Data Retention
   compliance, custom trace processors redacting PII before storage)
@@ -1089,7 +1118,7 @@ because it is "just logs."
 
 ## C36. Provider-managed conversation state lock-in
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 13 (Vendor Resilience), touches 20 (Context Continuity)
 - **Source**: OpenAI developers track (Responses API's server-side
   conversation-history statefulness)
@@ -1119,7 +1148,7 @@ all - an economic and lock-in risk, not a debuggability one.
 
 ## C37. Checkpointing for triggered or scheduled agents on partial failure
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v3.0.txt, section 5
 - **Section**: 18 (Deployment & Recovery)
 - **Source**: OpenAI workspace-agents framing (trigger + process + connected
   tools, for time-based or event-driven work)
@@ -1158,7 +1187,7 @@ C15); those are not re-added here. Only the genuinely new claims follow.
 
 ## C38. Deterministic script versus inference for repeatable sub-tasks
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: 1 (AI Configuration)
 - **Source**: pasted summary, "write code instead of tokens: if a
   deterministic task can be handled by a short script, let code handle it
@@ -1189,7 +1218,7 @@ about recognizing when the model should not be doing the work at all.
 
 ## C39. Embedded self-verification step within skill or workflow procedures
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: 1 (AI Configuration)
 - **Source**: pasted summary, "self-correction loops: program skills to
   include verification steps - have Claude render, inspect, or critique its
@@ -1267,8 +1296,8 @@ place. The two IBM videos below reinforce this - their organizing frame is
 skills as a category in their own right, alongside MCP, RAG, and memory, not
 a subtopic of general AI configuration.
 
-**Done**: inserted as section 2 (Agent Skills Audit) in
-Save Tokens Audit v2.2.txt, right after section 1. Sections that were 2-21
+**Done**: inserted as section 2 (Agent Skills Audit), integrated in v2.2
+(see archive/Delta v2.2 from v2.1.md), right after section 1. Sections that were 2-21
 were renumbered to 3-22. The former Skills architecture block was cut out of
 section 1 and moved into section 2 verbatim; two cross-references inside
 section 1 that pointed at it were updated to name section 2 explicitly.
@@ -1300,7 +1329,7 @@ candidate.
 
 ## C41. Skill trigger-description specificity
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section (see structural proposal above),
   currently section 1
 - **Source**: "5 Best Practices for Building AI Agent Skills" (IBM
@@ -1332,7 +1361,7 @@ a skill can pass one while failing the other.
 
 ## C42. Explicit escalation conditions instead of guessing
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2,
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2,
   accepted as-is on the reconstructed content's own merits despite the
   sourcing caveat above
 - **Section**: proposed new Skills section, currently section 1
@@ -1366,8 +1395,13 @@ precondition failure at all.
 
 ## C43. Mechanism selection: skill, MCP tool, RAG, or memory
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2,
-  placed first, before Skills architecture, as the logically prior question
+- **Status**: Rejected - discarded on review after being read live in the
+  prompt; not mature or clear enough, and judged a risk of causing confusion
+  rather than being clarifying. Removed from Save Tokens Audit v3.0.txt,
+  section 2 (had been placed first, before Skills architecture). See the
+  sourcing caveat below - built from a video description's stated thesis
+  with no verified explanatory content, which likely contributed to it
+  reading as underdeveloped once seen in place.
 - **Section**: proposed new Skills section, or new agent-platform section
 - **Source**: "Skills vs MCP vs RAG vs Memory: What AI Agents Need to Know"
   (IBM Technology) - description states the video's own thesis: "four core
@@ -1425,7 +1459,7 @@ Anthropic and OpenAI. C51 is corroborated by all three.
 
 ## C44. Concise-is-key / assume-competence pruning
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic Skill authoring best practices, "Core principles ->
   Concise is key" - a verbatim before/after example: the same instruction at
@@ -1450,7 +1484,7 @@ tool or library was chosen when a bare recommendation would do the same job.
 
 ## C45. Freedom-calibration to task fragility
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic Skill authoring best practices, "Set appropriate
   degrees of freedom" - three instruction styles (high-freedom heuristic
@@ -1476,7 +1510,7 @@ actually matches what the skill's own title or description implies.
 
 ## C46. Reference-file navigability: link depth and table-of-contents discipline
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic Skill authoring best practices, "Avoid deeply nested
   references" and "Structure longer reference files with a table of
@@ -1501,7 +1535,7 @@ command like `head` or `sed` instead of reading it whole.
 
 ## C47. Tool and skill count budget with deferred, search-based discovery
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: cross-vendor with hard numbers. OpenAI's function-calling
   guide: "aim for fewer than 20 functions available at the start of a
@@ -1533,7 +1567,7 @@ quantified mechanism for the tool/skill-count dimension of that budget.
 
 ## C48. Programmatic tool orchestration to prevent context pollution
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic advanced tool use post, "Programmatic Tool Calling" -
   measured reduction from 43,588 to 27,297 tokens (37 percent) on a
@@ -1566,7 +1600,7 @@ tool calls compose, not whether any single step should be scripted.
 
 ## C49. Evaluation-first skill development
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic Skill authoring best practices, "Build evaluations
   first" - create evaluations before writing extensive documentation, a
@@ -1598,7 +1632,7 @@ output.
 
 ## C50. Script robustness: no deferred error handling, no unjustified constants
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section
 - **Source**: Anthropic Skill authoring best practices, "Solve, don't defer"
   and the "voodoo constants" subsection (citing Ousterhout's law on
@@ -1628,7 +1662,7 @@ about whether a script, once written, is actually reliable to depend on.
 
 ## C51. Skill supply-chain trust and injection/exfiltration review gate
 
-- **Status**: Processed - written into Save Tokens Audit v2.2.txt, section 2
+- **Status**: Processed - written into v2.2 (see archive/Delta v2.2 from v2.1.md), section 2
 - **Section**: proposed new Skills section, touches 6 (Security)
 - **Source**: triple-corroborated. Anthropic's Agent Skills blog post,
   "Security considerations" - audit an externally-sourced skill's bundled

@@ -73,6 +73,13 @@ checks, in this order:
    artifact.
 9. **Explicit escalation conditions instead of guessing** *(new)*: named
    stop-and-ask conditions rather than proceeding on an unstated assumption.
+   **Provenance caveat**: sourced from a video chapter title only ("When
+   Agents Shouldn't Guess", IBM Technology) — the explanatory content could
+   not be read (transcript unavailable), so the check's wording is a
+   reconstruction of what the title implies, not a paraphrase of stated
+   content. Lowest-confidence item introduced in this version. Verify
+   against the source, or against independent practice, before treating it
+   as settled guidance in a future revision.
 10. **Script robustness** *(new)*: bundled scripts handling their own common
     failure modes and documenting constants, rather than deferring errors
     back to the agent or leaving magic numbers unexplained.
