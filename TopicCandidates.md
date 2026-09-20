@@ -37,7 +37,7 @@ Text is deliberately plain ASCII. Working file: Save Tokens Audit v2.1.txt
 
 ## C1. Test suite parallelization and wall-clock budget
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 12
 - **Source**: issue #1 (Auditing for testing parallelization)
 - **Section**: 12 (Testing), possibly a shared note with 11 (Build Pipeline)
 - **Budget**: ~25 lines
@@ -66,7 +66,7 @@ usually exposes order dependence.
 
 ## C2. Feedback-loop latency against the agent's tool timeout
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 11
 - **Source**: papercuts 2026-09-19 (pre-commit `lake build`, 6-12 min, hit the
   2-min tool timeout)
 - **Section**: 11 (Build Pipeline)
@@ -91,7 +91,7 @@ agent is supposed to do when something is unavoidably slow.
 
 ## C3. Recommendation intake and disposition
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 16
 - **Source**: issue #2 (Integrate Agent recommendations)
 - **Section**: 16 (Governance) or a new section
 - **Budget**: ~20 lines
@@ -166,7 +166,7 @@ identified for skills.
 
 ## C6. Per-session baseline budget
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 1
 - **Section**: 1 (AI Configuration)
 - **Budget**: ~30 lines (absorbs C5)
 
@@ -197,7 +197,7 @@ stated number in the final output format.
 
 ## C7. Permission and approval friction
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 1
 - **Section**: 1 (AI Configuration) or 16 (Governance)
 - **Budget**: ~15 lines
 
@@ -224,7 +224,7 @@ for a large occasional one.
 
 ## C8. Tooling friction log
 
-- **Status**: Selected
+- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 20
 - **Source**: the papercuts practice itself
 - **Section**: 20 (Context Continuity) or 16 (Governance)
 - **Budget**: ~15 lines
@@ -480,6 +480,60 @@ that nobody audits is a standing instruction with no owner.
 
 ---
 
+## C18. Parallel execution of the audit prompt itself
+
+- **Status**: To investigate
+- **Source**: user request, this session
+- **Section**: not a numbered section - a change to ROLE & CONSTRAINTS /
+  AUDIT SEQUENCE, the preamble that currently mandates "Perform each section
+  in order"
+- **Budget**: ~25-30 lines in the preamble
+
+**Leak**: The current instruction is strict sequential execution across 21
+sections in one context. On a codebase of real size this is the audit's own
+largest wall-clock cost, and it is self-inflicted: most sections read
+different files and evaluate independent properties (Accessibility and
+Internationalisation, for instance, share no real dependency). Serial
+execution pays full sequential time for work that does not need it.
+
+**Change proposed**: add explicit permission, near ROLE & CONSTRAINTS or
+AUDIT SEQUENCE, to run the audit as a fan-out - one agent per section or per
+cluster of related sections, running concurrently - followed by a synthesis
+pass that merges and ROI-ranks every worker's findings into the single
+required output list. This turns section execution from an implicit
+turn-by-turn choice into a named pattern, which is exactly the discipline C15
+argues every orchestration decision should get.
+
+**Why this is not simply Selected yet**:
+- Some sections have a real dependency and cannot run blind to each other's
+  output. The C1 block explicitly points at section 11's Flakiness check;
+  C6's baseline-budget measurement is referenced by section 20; section 12
+  (Testing) presumes section 11 has already defined the pipeline's levels.
+  A fan-out needs to say which sections are safe to parallelize and which
+  must run after another, not treat all 21 as independent by default.
+- The FINAL OUTPUT FORMAT section requires one ranked list, not 21. Naive
+  concatenation would double-count overlapping findings - section 6 (Security)
+  and section 19 (AI-Specific Risk) both touch reviewed AI output, for
+  example - so the synthesis step needs real deduplication, not just a merge.
+- A fan-out of independent workers is exactly the shape C16 already warns
+  about: a caller that only sees each worker's summary, with no way to check
+  it independently. If this is adopted, the synthesis pass should apply
+  C16's rule - verify a finding against the artifact before it is ranked,
+  don't accept it from the summary alone.
+- Cost: 21 concurrent agents is workflow-scale, not casual subagent-scale.
+  Worth bounding with a size guideline (per C15) rather than defaulting to
+  one worker per section regardless of project size - a small project does
+  not need a 21-agent fan-out to answer a question a single pass would answer
+  as fast.
+
+**Note**: this candidate applies C15's own argument - choose an orchestration
+mode and bound its cost - to the audit prompt's own execution, and pulls in
+C16's verification rule for the same reason. It reads as an addition to the
+preamble that changes how the whole prompt runs, not as a new numbered
+section that changes what it evaluates.
+
+---
+
 ## Notes for triage
 
 C1 and C2 come straight from the open issues and should probably anchor the
@@ -490,9 +544,14 @@ mentions parallel sessions, connected tool servers, or a measured baseline.
 C7 through C9 are narrower. C10 overlaps with existing material in section 19
 and may be better as two added bullets than as its own block.
 
-**Triage complete (see status field on each entry above).** Final tally: 13
-Selected, 4 Rejected (C4, C5, C10 merged away; C9 dropped outright). Zero
-Undecided or To investigate remain.
+**Triage of C1-C17 complete (see status field on each entry above).** Of those:
+6 Processed (C1, C2, C3, C6, C7, C8 - written into Save Tokens Audit
+v2.1.txt), 7 Selected but not yet integrated (C11-C17), 4 Rejected (C4, C5,
+C10 merged away; C9 dropped outright).
+
+C18 is To investigate: settle the section-dependency map and the
+double-counting risk in synthesis (both flagged in its entry) before it can
+move to Selected.
 
 Selected, as 13 distinct blocks to draft:
 
