@@ -29,17 +29,17 @@ actually contains.
 
 Target for the next version: pick the few that earn their lines. v2.1 added
 exactly one block (50 lines, section 1) over v2.0, and was committed as-is
-(1222 lines, 21 sections) - see Delta v2.1 from v2.0.md.
+(1222 lines, 21 sections) - see archive/Delta v2.1 from v2.0.md.
 
 Text is deliberately plain ASCII. Working file: Save Tokens Audit v2.2.txt,
-not yet committed (1451 lines, 22 sections) - see Delta v2.2 from v2.1.md.
+not yet committed (1451 lines, 22 sections) - see archive/Delta v2.2 from v2.1.md.
 Do not add further content to v2.1.txt; it is closed and matches its commit.
 
 ---
 
 ## C1. Test suite parallelization and wall-clock budget
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 12
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 12
 - **Source**: issue #1 (Auditing for testing parallelization)
 - **Section**: 12 (Testing), possibly a shared note with 11 (Build Pipeline)
 - **Budget**: ~25 lines
@@ -68,7 +68,7 @@ usually exposes order dependence.
 
 ## C2. Feedback-loop latency against the agent's tool timeout
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 11
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 11
 - **Source**: papercuts 2026-09-19 (pre-commit `lake build`, 6-12 min, hit the
   2-min tool timeout)
 - **Section**: 11 (Build Pipeline)
@@ -93,7 +93,7 @@ agent is supposed to do when something is unavoidably slow.
 
 ## C3. Recommendation intake and disposition
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 16
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 16
 - **Source**: issue #2 (Integrate Agent recommendations)
 - **Section**: 16 (Governance) or a new section
 - **Budget**: ~20 lines
@@ -168,7 +168,7 @@ identified for skills.
 
 ## C6. Per-session baseline budget
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 1
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 1
 - **Section**: 1 (AI Configuration)
 - **Budget**: ~30 lines (absorbs C5)
 
@@ -199,7 +199,7 @@ stated number in the final output format.
 
 ## C7. Permission and approval friction
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 1
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 1
 - **Section**: 1 (AI Configuration) or 16 (Governance)
 - **Budget**: ~15 lines
 
@@ -226,7 +226,7 @@ for a large occasional one.
 
 ## C8. Tooling friction log
 
-- **Status**: Processed - written into Save Tokens Audit v2.1.txt, section 20
+- **Status**: Processed - written into archive/Save Tokens Audit v2.1.txt, section 20
 - **Source**: the papercuts practice itself
 - **Section**: 20 (Context Continuity) or 16 (Governance)
 - **Budget**: ~15 lines
@@ -1274,7 +1274,7 @@ section 1 and moved into section 2 verbatim; two cross-references inside
 section 1 that pointed at it were updated to name section 2 explicitly.
 Note: this work initially landed in v2.1.txt by mistake, after v2.1 had
 already been committed - corrected by moving the content to v2.2.txt and
-restoring v2.1.txt to its committed state. See Delta v2.2 from v2.1.md.
+restoring v2.1.txt to its committed state. See archive/Delta v2.2 from v2.1.md.
 
 ---
 
